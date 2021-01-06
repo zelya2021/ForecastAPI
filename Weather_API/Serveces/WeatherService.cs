@@ -10,9 +10,9 @@ namespace Weather_API.Serveces
 {
     public class WeatherService : IWeatherService
     {
+        private const string AppKey = "1744b57dc4b9ab7983cb1e8344e412a7";
         public WeatherInfo GetCurrentWeatherByCity(string sityName)
         {
-            const string AppKey = "1744b57dc4b9ab7983cb1e8344e412a7";
             var client = new HttpClient();
             HttpResponseMessage response = client.GetAsync(new Uri($"http://api.openweathermap.org/data/2.5/weather?q={sityName}&appid={AppKey}")).GetAwaiter().GetResult();
             string jsonResult = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
@@ -36,7 +36,6 @@ namespace Weather_API.Serveces
         }
         public WeatherInfo[] GetForecastByCity(string sityName)
         {
-            const string AppKey = "1744b57dc4b9ab7983cb1e8344e412a7";
             var client = new HttpClient();
             HttpResponseMessage response = client.GetAsync(new Uri($"http://api.openweathermap.org/data/2.5/forecast?q={sityName}&appid={AppKey}")).GetAwaiter().GetResult();
             string jsonResult = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
