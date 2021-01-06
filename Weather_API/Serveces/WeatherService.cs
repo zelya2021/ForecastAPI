@@ -46,7 +46,15 @@ namespace Weather_API.Serveces
                 var exception = JsonConvert.DeserializeObject<BadResult>(jsonResult);
                 throw new HttpException(response.StatusCode, exception);
             }
-            return JsonConvert.DeserializeObject<WeatherList>(jsonResult).list;
+            var weather= JsonConvert.DeserializeObject<WeatherList>(jsonResult).list;
+
+            foreach (var item in weather)
+            {
+                item.Main.temp_max = item.Main.temp_max - (decimal)273.15;
+                item.Main.temp_min = item.Main.temp_min - (decimal)273.15;
+            }
+
+            return weather;
         }
     }
 }
